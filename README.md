@@ -15,9 +15,9 @@ There are 4 variable are customized :
 
 
 ## Usage : 
+`python SteamMakeBoosterPack.py "JNGTT"`
 
 <p align="center">
   <img src="img/demo.jpg" width = "180" height = "390" border="5">
 </p>
 
-`python SteamMakeBoosterPack.py "JNGTT"`
