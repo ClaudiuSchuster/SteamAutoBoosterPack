@@ -20,4 +20,4 @@ There are 4 variable are customized :
   <img src="img/demo.jpg" width = "180" height = "390" border="5">
 </p>
 
-python SteamMakeBoosterPack.py "JNGTT"
+`python SteamMakeBoosterPack.py "JNGTT"`
