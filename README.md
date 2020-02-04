@@ -15,7 +15,7 @@ There are 4 variable are customized :
 
 
 ## Usage : 
-`python SteamMakeBoosterPack.py "JNGTT"`
+`python SteamMakeBoosterPack.py ` and enter steam guard code on steam mobile app.
 
 <p>
   <img src="img/demo.jpg" width = "180" height = "390" border="5">

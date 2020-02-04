@@ -5,7 +5,6 @@ import datetime
 import time
 import os, sys
 
-twofactor_code = sys.argv[1]
 username = 'your_steam_account'
 password = 'your_steam_password'
 inventory_id = "Chihang0711"
@@ -18,6 +17,8 @@ headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36"
 }
 account = steam.webauth.WebAuth(username, password)
+
+twofactor_code = input("Please enter steam guard code : ")
 account_session = account.login(twofactor_code=twofactor_code)
 while True:
     for gi in game_id:
