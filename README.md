@@ -1,7 +1,7 @@
 # SteamAutoBoosterPack
 No need to create and unpack steam booster pack manually everyday.
 
-For using this script, [![steam 0.9.1](https://img.shields.io/badge/steam-0.9.1-blue.svg)](https://pypi.org/project/steam/) package must be installed for python3.
+For using this script, [![steam 0.9.1](https://img.shields.io/badge/steam-0.9.1-blue.svg)](https://pypi.org/project/steam/) [![steamfront 0.1.0](https://img.shields.io/badge/steamfront-0.1.0-blue.svg)](https://pypi.org/project/steamfront/)  package must be installed for python3.
 
 There are 4 variable are customized :
 
