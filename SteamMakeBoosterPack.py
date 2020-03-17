@@ -21,7 +21,10 @@ headers = {
 }
 account = steam.webauth.WebAuth(username, password)
 twofactor_code_inp = input("Please enter steam guard code : ")
-account_session = account.login(twofactor_code=twofactor_code_inp)
+try:
+    account_session = account.login(twofactor_code=twofactor_code_inp)
+except Exception as e:
+    print(e)
 
 while True:
     for gi in game_id:
@@ -32,6 +35,7 @@ while True:
             "tradability_preference" : 1
         }
         response = account_session.post(make_url, headers=headers, data=params)
+        goo_amount = int(re.search(r'"goo_amount":"([^"]+)"', response.text).group(1))
         if goo_amount <= 1000:
             print("Steam gems stock low, please re-fill.")
             break
