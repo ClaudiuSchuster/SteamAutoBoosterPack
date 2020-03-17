@@ -23,8 +23,8 @@ account = steam.webauth.WebAuth(username, password)
 twofactor_code_inp = input("Please enter steam guard code : ")
 try:
     account_session = account.login(twofactor_code=twofactor_code_inp)
-except Exception as e:
-    print(e)
+except:
+    print("Please check account info or steam guard code.")
 
 while True:
     for gi in game_id:
