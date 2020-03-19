@@ -1,23 +1,18 @@
 # SteamAutoBoosterPack
-No need to create and unpack steam booster pack manually everyday.
+This is a simple app develop in python and Qt that allow you make steam boosterpack automatically.
 
-For using this script, [![steam 0.9.1](https://img.shields.io/badge/steam-0.9.1-blue.svg)](https://pypi.org/project/steam/) [![steamfront 0.1.0](https://img.shields.io/badge/steamfront-0.1.0-blue.svg)](https://pypi.org/project/steamfront/)  package must be installed for python3.
+## Usage
 
-There are 4 variable are customized :
+First time of use, please select ***Config*** tab to create a config file with account information.
 
-`username` : string, your steam account
+There are 4 parameter must be set : 
 
-`password` : string, your steam password
+1. Username : Your steam account email.
 
-`inventory_id` : string, your inventory id, you can go to the inventory page on steam to check this.
+2. Password : Your steam account password.
 
-`game_id` : list, app id of steam games that you want to create steam booster pack.
+3. Inventory ID : Your steam account inventory id, you can find it on the top of your steam inventory, for me is "**ChiHang0711**".
 
-
-## Usage : 
-`python SteamMakeBoosterPack.py ` and enter steam guard code on steam mobile app.
-
-<p>
-  <img src="img/demo.jpg" width = "180" height = "390" border="5">
+<p align="center">
+  <img src="img/inventory_id.jpg" width = "500" height = "208" border="5">
 </p>
-
