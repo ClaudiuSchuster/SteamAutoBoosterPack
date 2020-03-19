@@ -1,6 +1,10 @@
 # SteamAutoBoosterPack
 This is a simple app develop in python and Qt that allow you make steam boosterpack automatically.
 
+<p align="center">
+  <img src="img/demo.jpg" width = "420" height = "340" border="5">
+</p>
+
 ## Usage
 
 #### Setting config
