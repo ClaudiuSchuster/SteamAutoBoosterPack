@@ -20,7 +20,7 @@ There are 4 parameter must be set in config file:
 </p>
 
 4. App list : A list of steamm games that you want to create booster pack automatically, this list can be modified by 2 buttons : **Add app** and **Remove app**
-* Add app : Enter the steam game id to add the game to list, for add multiple app id, comma seperater can be used. You can get steam app id from [SteamDB](https://steamdb.info/apps/)
+* Add app : Enter the steam game id to add the game to list, for add multiple app id, comma seperater can be used. You can get steam app id from [SteamDB](https://steamdb.info/apps/).
 
 * Remove app : Click the checkbox of app you want to remove and click remove button.
 
