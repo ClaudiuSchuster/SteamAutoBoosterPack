@@ -17,7 +17,7 @@ There are 4 parameter must be set in config file:
 
 2. Password : Your steam account password.
 
-3. Inventory ID : Your steam account inventory id, you can find it on the top of your steam inventory, for me is **ChiHang0711**.
+3. Inventory ID : Your steam account inventory id, you can find it on the top of your steam inventory, for me is **ChiHang0711**, **this is for unpack booster pack after purchase**.
 
 <p align="center">
   <img src="img/inventory_id.jpg" width = "500" height = "208" border="5">
