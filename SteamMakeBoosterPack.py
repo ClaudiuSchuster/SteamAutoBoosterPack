@@ -24,13 +24,16 @@ class mainProgram(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(mainProgram, self).__init__(parent)
         self.setupUi(self)
-        print("Loading all Steam games...")
-        data = urllib.request.urlopen(r"http://api.steampowered.com/ISteamApps/GetAppList/v0002/?key=STEAMKEY&format=json").read()
-        output = json.loads(data)
-        self.steam_apps = {}
-        for i in output['applist']['apps']:
-            self.steam_apps[i['appid']] = i['name']
         self.print_text = print_log(self.status_print)
+        print("Loading all Steam games...")
+        try:
+            data = urllib.request.urlopen(r"http://api.steampowered.com/ISteamApps/GetAppList/v0002/?key=STEAMKEY&format=json").read()
+            output = json.loads(data)
+            self.steam_apps = {}
+            for i in output['applist']['apps']:
+                self.steam_apps[i['appid']] = i['name']
+        except:
+            self.print_text.append("Connection error, can not connect to internect",True,color = "#ff0000")
         # Set default tab to Main
         self.tabWidget.setCurrentIndex(0)
         # Set button connect
@@ -40,6 +43,7 @@ class mainProgram(QMainWindow, Ui_MainWindow):
         self.add_btn.clicked.connect(self.add_apps)
         # Load config
         if os.path.exists('config.ini'):
+            self.config_found = True
             config = configparser.ConfigParser()
             config.read('config.ini')
             self.username = config['ACCOUNT INFO']['username']
@@ -53,9 +57,10 @@ class mainProgram(QMainWindow, Ui_MainWindow):
             self.print_text.append("Load config success!")
             self.set_checkbox_layout(self.game_id,True)
         else:
+            self.config_found = False
+            self.game_id = []
             self.print_text.append("Config file not detected, please create a new config file.",color = "#ff0000")
         self.print_text.text_out()
-        self.print_text.append("Getting login information...",True)    
     
     def set_checkbox_layout(self,game_id,init=False):
         self.checkbox_groupbox = QGroupBox()
@@ -95,6 +100,7 @@ class mainProgram(QMainWindow, Ui_MainWindow):
         with open('config.ini', 'w') as configfile:
             config.write(configfile)
         QMessageBox.information(self, "Success!", f"Save config file success!")
+#        self.config_found = True
         return None
     
     def remove_apps(self):
@@ -114,23 +120,44 @@ class mainProgram(QMainWindow, Ui_MainWindow):
         
     # Start make booster pack
     def start(self):
-        self.account = steam.webauth.WebAuth(self.username, self.password)    
-        twofactor_code_inp, okPressed = QInputDialog.getText(self, "Mobile Authenticator","Enter steam mobile authenticator:", QLineEdit.Normal, "")
-        if okPressed:
-            try:
-                self.account_session = self.account.login(twofactor_code=str(twofactor_code_inp))
-                self.print_text.append("Login success!",True)
-            except:
-                self.print_text.append("Login failed, please check account info or authenticator code.",True,"#ff0000")
-                return None
-            # Set main work
-            self.worker = main_worker(self.account, self.print_text, self.account_session, self.inventory_id, self.game_id)
-            self.worker.signal.connect(self.print_text.text_out)
-            self.work_thread = QThread()
-            self.worker.moveToThread(self.work_thread)
-            self.work_thread.started.connect(self.worker.run)
-            self.work_thread.start()
-            
+        def run_thread():
+            self.print_text.append("Getting login information...",True)
+            self.account = steam.webauth.WebAuth(self.username, self.password)    
+            twofactor_code_inp, okPressed = QInputDialog.getText(self, "Mobile Authenticator","Enter steam mobile authenticator:", QLineEdit.Normal, "")
+            if okPressed:
+                try:
+                    self.account_session = self.account.login(twofactor_code=str(twofactor_code_inp))
+                    self.print_text.append("Login success!",True)
+                except:
+                    self.print_text.append("Login failed, please check account info or authenticator code.",True,"#ff0000")
+                    return None
+                # Set main work
+                self.worker = main_worker(self.account, self.print_text, self.account_session, self.inventory_id, self.game_id)
+                self.worker.signal.connect(self.print_text.text_out)
+                self.work_thread = QThread()
+                self.worker.moveToThread(self.work_thread)
+                self.work_thread.started.connect(self.worker.run)
+                self.work_thread.start()
+                
+        if self.config_found:
+            run_thread()
+        else:
+            if os.path.exists('config.ini'):
+                config = configparser.ConfigParser()
+                config.read('config.ini')
+                self.username = config['ACCOUNT INFO']['username']
+                self.username_text.setText(self.username)
+                self.password = config['ACCOUNT INFO']['password']
+                self.password_text.setText(self.password)
+                self.inventory_id = config['ACCOUNT INFO']['inventory_id']
+                self.inventory_id_text.setText(self.inventory_id)
+                self.game_id = json.loads(config['APP LIST']['game_id'])
+                self.set_texteditor_font()
+                self.print_text.append("Load config success!",True)
+                self.set_checkbox_layout(self.game_id,True)
+                run_thread()                
+            else:
+                self.print_text.append("Config file not detected, please create a new config file.",True,color = "#ff0000")
 class main_worker(QObject):
     signal = pyqtSignal()
     signal_stop = pyqtSignal()
