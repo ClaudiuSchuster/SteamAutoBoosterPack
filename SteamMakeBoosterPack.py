@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import (
         QMainWindow, QApplication, QInputDialog, QLineEdit, QMessageBox, QCheckBox, QGroupBox, QVBoxLayout
 )
 from PyQt5.QtGui import QIcon, QFont
-from PyQt5.QtCore import Qt, pyqtSignal, QThread, QObject
+from PyQt5.QtCore import Qt, pyqtSignal, QThread
 from UI import Ui_MainWindow
 from util import resource_path, print_log
 
@@ -134,10 +134,7 @@ class mainProgram(QMainWindow, Ui_MainWindow):
                 # Set main work
                 self.worker = main_worker(self.account, self.print_text, self.account_session, self.inventory_id, self.game_id)
                 self.worker.signal.connect(self.print_text.text_out)
-                self.work_thread = QThread()
-                self.worker.moveToThread(self.work_thread)
-                self.work_thread.started.connect(self.worker.run)
-                self.work_thread.start()
+                self.worker.start()
                 
         if self.config_found:
             run_thread()
@@ -158,11 +155,11 @@ class mainProgram(QMainWindow, Ui_MainWindow):
                 run_thread()                
             else:
                 self.print_text.append("Config file not detected, please create a new config file.",True,color = "#ff0000")
-class main_worker(QObject):
+class main_worker(QThread):
     signal = pyqtSignal()
     signal_stop = pyqtSignal()
     def __init__(self, account, print_text, accountSession, inventory_id, game_id):
-        QObject.__init__(self)
+        QThread.__init__(self)
         self.account = account
         self.print_text = print_text
         self.inventory_id = inventory_id
