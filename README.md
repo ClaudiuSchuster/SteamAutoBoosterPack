@@ -36,3 +36,7 @@ After all settings are done, click **Save config** button, and a *config.ini* fi
 #### Run making booster pack loop
 
 Go to **Main** tab and click **Start** button, after enter the steam mobile authenticator, the loop will begin and re-run every 4 hours.
+
+#### Run with python command rather than exe file
+
+Use command `python3 SteamMakeBoosterPack.py`
